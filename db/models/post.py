@@ -11,9 +11,12 @@ class Post(db.Model):
     reads = db.Column(db.Integer, default=0, nullable=False)
     popularity = db.Column(db.Float, default=0.0, nullable=False)
     users = db.relationship("User", secondary="user_post", viewonly=True)
-
     # note: comma separated string since sqlite does not support arrays
     _tags = db.Column("tags", db.String, nullable=False)
+
+    def toDict(self):
+       return dict(id=self.id, likes=self.likes, reads=self.reads, tags=self.tags, popularity=self.popularity, text=self.text)
+
 
     # getter and setter for tags column.
     # converts list to string when value is set and string to list when value is retrieved.

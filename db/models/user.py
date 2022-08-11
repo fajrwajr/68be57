@@ -13,6 +13,7 @@ class User(db.Model):
     salt = db.Column(db.String, nullable=False)
     posts = db.relationship("Post", secondary="user_post", viewonly=True)
 
+
     @validates("password")
     def validate_username(self, key, password) -> str:
         if len(password) < 6:
